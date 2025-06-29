@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-const PORT = "5000";
+require("dotenv").config();
+const PORT = process.env.PORT;
+
 app.use(express.json());
 app.use(
   cors({
@@ -15,9 +17,7 @@ app.use(
 require("./routes.js")(app);
 
 mongoose
-  .connect(
-    "mongodb+srv://savanupadhyay94:qad2fgzOhmNtB5Nu@savan.vsqrq.mongodb.net/"
-  )
+  .connect(process.env.MONGO_DB_URL)
   .then(() => {
     console.log("Database Connected Successfully..........");
     app.listen(PORT, () => {
